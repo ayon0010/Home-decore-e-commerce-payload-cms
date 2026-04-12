@@ -102,8 +102,15 @@ export default {
         },
       },
       fontFamily: {
+        sans: [
+          'var(--font-sofia-pro)',
+          'ui-sans-serif',
+          'system-ui',
+          'sans-serif',
+        ],
+        display: ['var(--font-ivy-mode)', 'Georgia', 'Times New Roman', 'serif'],
         mono: ['var(--font-geist-mono)'],
-        sans: ['var(--font-geist-sans)'],
+        geist: ['var(--font-geist-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       keyframes: {
         fadeIn: {

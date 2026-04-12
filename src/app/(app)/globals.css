@@ -4,11 +4,11 @@
 @config '../../../tailwind.config.mjs';
 
 @custom-variant dark (&:is([data-theme='dark'] *));
-@custom-variant sm (@media (width >= theme(--breakpoint-sm)));
-@custom-variant md (@media (width >= theme(--breakpoint-md)));
-@custom-variant lg (@media (width >= theme(--breakpoint-lg)));
-@custom-variant xl (@media (width >= theme(--breakpoint-xl)));
-@custom-variant 2xl (@media (width >= theme(--breakpoint-2xl)));
+@custom-variant sm (@media (width >=theme(--breakpoint-sm)));
+@custom-variant md (@media (width >=theme(--breakpoint-md)));
+@custom-variant lg (@media (width >=theme(--breakpoint-lg)));
+@custom-variant xl (@media (width >=theme(--breakpoint-xl)));
+@custom-variant 2xl (@media (width >=theme(--breakpoint-2xl)));
 
 @layer base {
   h1,
@@ -44,7 +44,18 @@
   --breakpoint-xl: 80rem;
   --breakpoint-2xl: 86rem;
   --font-mono: var(--font-geist-mono);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-sofia-pro),
+  ui-sans-serif,
+  system-ui,
+  sans-serif;
+  --font-display: var(--font-ivy-mode),
+  Georgia,
+  'Times New Roman',
+  serif;
+  --font-geist: var(--font-geist-sans),
+  ui-sans-serif,
+  system-ui,
+  sans-serif;
 }
 
 @layer utilities {
@@ -123,6 +134,9 @@
   --success: oklch(78% 0.08 200deg);
   --warning: oklch(89% 0.1 75deg);
   --error: oklch(75% 0.15 25deg);
+  --primary-color: #F6F5EE;
+  --secondary-color: #343F32;
+  --third-color: #C99383;
 }
 
 [data-theme='dark'] {
@@ -161,6 +175,9 @@
   --success: oklch(28% 0.1 200deg);
   --warning: oklch(35% 0.08 70deg);
   --error: oklch(45% 0.1 25deg);
+  --primary-color: #1A1A1A;
+  --secondary-color: #F6F5EE;
+  --third-color: #C92385;
 }
 
 @theme inline {
@@ -203,12 +220,16 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
+  --color-primary-color: var(--primary-color);
+  --color-secondary-color: var(--secondary-color);
+  --color-third-color: var(--third-color);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
   }
@@ -221,6 +242,11 @@ html {
 html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
+}
+
+body {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
 a,

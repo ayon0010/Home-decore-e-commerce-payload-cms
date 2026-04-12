@@ -1,13 +1,11 @@
 import type { Metadata } from 'next'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
-import { RenderHero } from '@/heros/RenderHero'
+import { homeStaticData } from '@/endpoints/seed/home-static'
 import { generateMeta } from '@/utilities/generateMeta'
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
-import { homeStaticData } from '@/endpoints/seed/home-static'
-import React from 'react'
+import { getPayload } from 'payload'
 
 import type { Page } from '@/payload-types'
 import { notFound } from 'next/navigation'
@@ -59,11 +57,10 @@ export default async function Page({ params }: Args) {
     return notFound()
   }
 
-  const { hero, layout } = page
+  const { layout } = page
 
   return (
-    <article className="pt-16 pb-24">
-      <RenderHero {...hero} />
+    <article className="">
       <RenderBlocks blocks={layout} />
     </article>
   )

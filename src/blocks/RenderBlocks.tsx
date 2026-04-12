@@ -10,6 +10,8 @@ import { toKebabCase } from '@/utilities/toKebabCase'
 import React, { Fragment } from 'react'
 
 import type { Page } from '../payload-types'
+import FeatureBlock from './FeatureBlock/Component'
+import HeroBannerBlock from './HeroBanner/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -19,7 +21,9 @@ const blockComponents = {
   cta: CallToActionBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
+  heroBanner: HeroBannerBlock,
   threeItemGrid: ThreeItemGridBlock,
+  featureBlock: FeatureBlock,
 }
 
 export const RenderBlocks: React.FC<{
@@ -40,7 +44,7 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               return (
-                <div className="my-16" key={index}>
+                <div className="" key={index}>
                   {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
                   {/* @ts-ignore - weird type mismatch here */}
                   <Block id={toKebabCase(blockName!)} {...block} />
