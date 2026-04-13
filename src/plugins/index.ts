@@ -13,7 +13,6 @@ import { adminOrPublishedStatus } from '@/access/adminOrPublishedStatus'
 import { customerOnlyFieldAccess } from '@/access/customerOnlyFieldAccess'
 import { isAdmin } from '@/access/isAdmin'
 import { isDocumentOwner } from '@/access/isDocumentOwner'
-import { ProductsCollection } from '@/collections/Products'
 import { Page, Product } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 
@@ -88,6 +87,17 @@ export const plugins: Plugin[] = [
     customers: {
       slug: 'users',
     },
+    currencies: {
+      defaultCurrency: 'AED',
+      supportedCurrencies: [
+        {
+          code: 'AED',
+          label: 'UAE Dirham',
+          symbol: 'د.إ', // Or use 'AED' if you prefer text
+          decimals: 2,
+        },
+      ],
+    },
     orders: {
       ordersCollectionOverride: ({ defaultCollection }) => ({
         ...defaultCollection,
@@ -126,7 +136,9 @@ export const plugins: Plugin[] = [
       ],
     },
     products: {
-      productsCollectionOverride: ProductsCollection,
+      productsCollectionOverride: ({ defaultCollection }) => ({
+        ...defaultCollection,
+      }),
     },
   }),
   searchPlugin({

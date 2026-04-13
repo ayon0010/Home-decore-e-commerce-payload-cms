@@ -1,11 +1,12 @@
-import type { Product, ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
+import type { ArchiveBlock as ArchiveBlockProps, Product } from '@/payload-types'
 
+import { RichText } from '@/components/RichText'
 import configPromise from '@payload-config'
 import { DefaultDocumentIDType, getPayload } from 'payload'
 import React from 'react'
-import { RichText } from '@/components/RichText'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
+import { ivyModeFont } from '@/fonts/font'
 
 export const ArchiveBlock: React.FC<
   ArchiveBlockProps & {
@@ -30,16 +31,26 @@ export const ArchiveBlock: React.FC<
     const fetchedProducts = await payload.find({
       collection: 'products',
       depth: 1,
+      draft: false,
       limit,
       ...(flattenedCategories && flattenedCategories.length > 0
         ? {
-            where: {
-              categories: {
-                in: flattenedCategories,
-              },
+          where: {
+            categories: {
+              in: flattenedCategories,
             },
-          }
-        : {}),
+            _status: {
+              equals: 'published',
+            },
+          },
+        }
+        : {
+          where: {
+            _status: {
+              equals: 'published',
+            },
+          },
+        }),
     })
 
     posts = fetchedProducts.docs
@@ -48,16 +59,18 @@ export const ArchiveBlock: React.FC<
       const filteredSelectedPosts = selectedDocs.map((post) => {
         if (typeof post.value === 'object') return post.value
       }) as Product[]
-
       posts = filteredSelectedPosts
     }
   }
 
+  console.log(posts);
+
+
   return (
     <div className="my-16" id={`block-${id}`}>
       {introContent && (
-        <div className="container mb-16">
-          <RichText className="ml-0 max-w-3xl" data={introContent} enableGutter={false} />
+        <div className="container mb-10">
+          <RichText className={`ml-0 ${ivyModeFont.className} text-4xl`} data={introContent} enableGutter={false} />
         </div>
       )}
       <CollectionArchive posts={posts} />
